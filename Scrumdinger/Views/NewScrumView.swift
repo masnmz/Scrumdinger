@@ -11,6 +11,7 @@ struct NewScrumView: View {
     @State private var newScrum = DailyScrum.emptyScrum
     @Binding var scrums: [DailyScrum]
     @Binding var showingNewScrumSheet: Bool
+    let saveAction: () -> Void
     var body: some View {
         NavigationStack {
             DetailEditView(scrum: $newScrum)
@@ -23,6 +24,7 @@ struct NewScrumView: View {
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Add") {
                             scrums.append(newScrum)
+                            saveAction()
                             showingNewScrumSheet = false
                         }
                     }
@@ -34,5 +36,5 @@ struct NewScrumView: View {
 
 #Preview {
     NewScrumView(scrums: .constant(DailyScrum.sampleData),
-                  showingNewScrumSheet: .constant(true))
+                 showingNewScrumSheet: .constant(true), saveAction: {})
 }
